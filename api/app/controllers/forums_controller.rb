@@ -1,21 +1,21 @@
 class ForumsController < ApplicationController
 
-  # GET /forums
+  #GET /forums
   def index
     @forums = Forum.all
   end
 
-  # GET /forums/:forumName
+  #GET /forums/:forumName
   def show
     @forum = Forum.find(params[:forumName])
   end
 
-  # POST /forums/:forumName
+  #POST /forums/:forumName
   def create
 
   end
 
-  # PATCH /forums/:forumName
+  #PATCH /forums/:forumName
   def update
 
   end
