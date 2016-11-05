@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
-	@user = User.new
-	@user.idTag
+
+	#POST /users/
+	def create
+		@user = User.new
+		@user.idTag
+	end
 end
