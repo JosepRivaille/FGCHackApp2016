@@ -23,13 +23,15 @@ class ForumsController < ApplicationController
 
   #GET /forums/:forumName
   def show
+    @forum = Forum.find(params[:id])
+    @entertainment = Entertainment.find(params[:id])
     forum = {
-        name: 'The Lord of the Rings',
-        visitors: 1,
-        participants: 1,
+        name: @forum.name,
+        visitors: @forum.visitors,
+        participants: @forum.participants,
         entertainment: {
-            description: 'Book written by Tolkien.',
-            category: 'Books'
+            description: @entertainment.description,
+            category: @entertainment.category
         }
     }
     respond_to do |format|
