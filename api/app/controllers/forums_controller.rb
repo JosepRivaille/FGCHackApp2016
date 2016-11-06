@@ -2,11 +2,18 @@ class ForumsController < ApplicationController
 
   #GET /forums
   def index
-    forums = {
-        name: 'nom',
-        category: 'Porqueria',
-        valoration: 1
-    }
+    forums = [
+        {
+            name: 'The Lord of the Rings',
+            category: 'Books',
+            valoration: 9.5
+        },
+        {
+            name: 'Deadpool',
+            category: 'Films',
+            valoration: 7
+        }
+    ]
     respond_to do |format|
       format.json do
         render json: forums
@@ -17,7 +24,7 @@ class ForumsController < ApplicationController
   #GET /forums/:forumName
   def show
     forum = {
-        name: 'The lord of the rings',
+        name: 'The Lord of the Rings',
         visitors: 1,
         participants: 1,
         entertainment: {
