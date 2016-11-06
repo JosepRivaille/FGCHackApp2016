@@ -2,24 +2,24 @@ class ForumsController < ApplicationController
 
   #GET /forums
   def index
-    @forums = [
-        {
-            name: 'The Lord of the Rings',
-            category: 'Books',
-            valoration: 9.5
-        },
-        {
-            name: 'Deadpool',
-            category: 'Films',
-            valoration: 7
-        }
-    ]
+    @forums = Forum.all
+    forums = []
+    @forums.each do |forum|
+      @entertainment = Entertainment.find_by(name: forum.name)
+      forums.push(
+          {
+            name: forum.name,
+            category: @entertainment.category,
+            valoration: @entertainment.score
+          })
+    end
     respond_to do |format|
       format.json do
-        render json: @forums
+        render json: forums
       end
     end
   end
+
 
   #GET /forums/:forumName
   def show
@@ -36,15 +36,17 @@ class ForumsController < ApplicationController
     }
     respond_to do |format|
       format.json do
-        render json: { forum: forum }
+        render json: forum
       end
     end
   end
+
 
   #POST /forums/:forumName
   def create
 
   end
+
 
   #PATCH /forums/:forumName
   def update
