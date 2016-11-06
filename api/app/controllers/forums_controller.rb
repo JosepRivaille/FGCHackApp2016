@@ -2,11 +2,11 @@ class ForumsController < ApplicationController
 
   #GET /forums
   def index
-    forums = {
+    forums = [{
         name: 'nom',
         category: 'Porqueria',
         valoration: 1
-    }
+    },]
     respond_to do |format|
       format.json do
         render json: forums
