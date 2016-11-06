@@ -2,7 +2,17 @@ class ForumsController < ApplicationController
 
   #GET /forums
   def index
-    @forums = Forum.all
+    forums = [
+        { name: 'nom', category: 'Porqueria', valoration: 1 },
+    ]
+
+    respond_to do |format|
+      format.json do
+        render json: forums
+      end
+    end
+
+    #@forums = Forum.all
   end
 
   #GET /forums/:forumName
