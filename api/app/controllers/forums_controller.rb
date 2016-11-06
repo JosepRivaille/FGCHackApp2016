@@ -5,12 +5,11 @@ class ForumsController < ApplicationController
     @forums = Forum.all
     forums = []
     @forums.each do |forum|
-      @entertainment = Entertainment.find_by(name: forum.name)
       forums.push(
           {
             name: forum.name,
-            category: @entertainment.category,
-            valoration: @entertainment.score
+            category: forum.entertainment.category,
+            valoration: forum.entertainment.score
           })
     end
     respond_to do |format|
@@ -24,14 +23,13 @@ class ForumsController < ApplicationController
   #GET /forums/:forumName
   def show
     @forum = Forum.find(params[:id])
-    @entertainment = Entertainment.find(params[:id])
     forum = {
         name: @forum.name,
         visitors: @forum.visitors,
         participants: @forum.participants,
         entertainment: {
-            description: @entertainment.description,
-            category: @entertainment.category
+            description: @forum.entertainment.description,
+            category: @forum.entertainment.category
         }
     }
     respond_to do |format|
