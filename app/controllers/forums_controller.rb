@@ -42,9 +42,10 @@ class ForumsController < ApplicationController
 
   #POST /forums/:forumName
   def create
-    name = [params[:id]]
-    @forum = Forum.new(:name => name.first.to_s, :visitors => 0, :participants => 0)
-    if @forum.save
+    name = [params[:id]].first.to_s
+    @forum = Forum.new(:name => name, :visitors => 0, :participants => 0)
+    @entertainment = Entertainment.new(:name => name, :description => 'guapo', :category => 'films', :score => 8.0)
+    if @forum.save and @entertainment.save
       head :status => :ok
     else
       head :status => :internal_server_error
