@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -113,23 +114,35 @@ public class ForumsList extends AppCompatActivity {
                     }
 
                     final ArrayAdapter<ForumSimple> adapter = new ArrayAdapter<ForumSimple>(
-                            ForumsList.this, android.R.layout.simple_expandable_list_item_2,
-                            android.R.id.text1, forumsSimples) {
+                            ForumsList.this, R.layout.forum_simple_item_list,
+                            R.id.text_title, forumsSimples) {
 
                         @Override
                         public View getView(int position, View convertView, ViewGroup parent) {
                             View view = super.getView(position, convertView, parent);
 
-                            TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-                            TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+                            ImageView imageCategory = (ImageView) view.findViewById(R.id.forum_simple_category_image);
+                            TextView textTitle = (TextView) view.findViewById(R.id.text_title);
+                            TextView textScore = (TextView) view.findViewById(R.id.text_score);
 
                             String name = forumsSimples.get(position).getName();
                             String category = forumsSimples.get(position).getCategory();
+                            Double valoration = forumsSimples.get(position).getValoration();
 
-                            text1.setText(name);
-                            text2.setText(category);
+                            imageCategory.setImageResource(getIconFromCategory(category));
+                            textTitle.setText(name);
+                            textScore.setText(String.valueOf(valoration));
 
                             return view;
+                        }
+
+                        private int getIconFromCategory(String category) {
+                            switch (category) {
+                                case "films":
+                                    return R.drawable.film_icon;
+                                default:
+                                    return R.drawable.film_icon;
+                            }
                         }
                     };
 
