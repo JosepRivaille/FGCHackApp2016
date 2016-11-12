@@ -7,9 +7,9 @@ class ForumsController < ApplicationController
     @forums.each do |forum|
       forums.push(
           {
-            name: forum.name,
-            category: 'films',#forum.entertainment.category,
-            valoration: 8.0#forum.entertainment.score
+              name: forum.name,
+              category: forum.entertainment.category,
+              valoration: forum.entertainment.score
           })
     end
     respond_to do |format|
@@ -40,24 +40,48 @@ class ForumsController < ApplicationController
   end
 
 
-  #POST /forums/:forumName
+  #POST /forums
   def create
-    name = [params[:id]].first.to_s
-    @forum = Forum.new(:name => name, :visitors => 0, :participants => 0)
-    # @entertainment = Entertainment.new(:name => name, :description => 'guapo', :category => 'films', :score => 8.0)
-    #if @entertainment.save
-    #  head :status => :ok
-    if @forum.save
-      head :status => :ok
-    else
-      head :status => :internal_server_error
+    name = [params[:forumName]].first.to_s
+    description = [params[:description]].first.to_s
+    category = [params[:category]].first.to_s
+
+    if check_valid_params(name, description, category)
+      @forum = Forum.new(:name => name, :visitors => 0, :participants => 0)
+      @entertainment = Entertainment.new(:name => name, :description => description, :category => 'category', :score => 0)
+      @forum.entertainment = @entertainment
+      if @forum.save
+        head :status => :ok
+      end
     end
+
+    head :status => :internal_server_error
+
   end
 
 
   #PATCH /forums/:forumName
   def update
 
+  end
+
+
+  private
+
+  def check_valid_params(name, description, category_name)
+    if name.equal? ''
+      return false
+    elsif description.equal? ''
+      return false
+    else
+      categories_list = %w(cinema sports music books games)
+      categories_list.each do |category|
+        if category === category_name
+          return true
+        end
+      end
+    end
+    false
   end
 
 end
