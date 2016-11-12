@@ -48,14 +48,16 @@ class ForumsController < ApplicationController
 
     if check_valid_params(name, description, category)
       @forum = Forum.new(:name => name, :visitors => 0, :participants => 0)
-      @entertainment = Entertainment.new(:name => name, :description => description, :category => 'category', :score => 0)
+      @entertainment = Entertainment.new(:name => name, :description => description, :category => category, :score => 0)
       @forum.entertainment = @entertainment
       if @forum.save
         head :status => :ok
+      else
+        head :status => :internal_server_error
       end
+    else
+      head :status => :bad_request
     end
-
-    head :status => :internal_server_error
 
   end
 
