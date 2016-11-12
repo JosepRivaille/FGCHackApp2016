@@ -138,10 +138,18 @@ public class ForumsList extends AppCompatActivity {
 
                         private int getIconFromCategory(String category) {
                             switch (category) {
-                                case "films":
-                                    return R.drawable.film_icon;
+                                case "cinema":
+                                    return R.drawable.cinema_icon;
+                                case "sports":
+                                    return R.drawable.sports_icon;
+                                case "music":
+                                    return R.drawable.music_icon;
+                                case "games":
+                                    return R.drawable.games_icon;
+                                case "books":
+                                    return R.drawable.books_icon;
                                 default:
-                                    return R.drawable.film_icon;
+                                    return R.drawable.default_icon;
                             }
                         }
                     };
