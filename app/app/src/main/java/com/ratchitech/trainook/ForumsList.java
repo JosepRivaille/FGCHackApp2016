@@ -68,27 +68,9 @@ public class ForumsList extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... params) {
-            return "[\n" +
-                    "  {\n" +
-                    "    \"name\": \"asdasd\",\n" +
-                    "    \"category\": \"films\",\n" +
-                    "    \"valoration\": 8\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"name\": \"123\",\n" +
-                    "    \"category\": \"films\",\n" +
-                    "    \"valoration\": 8\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"name\": \"asd\",\n" +
-                    "    \"category\": \"films\",\n" +
-                    "    \"valoration\": 8\n" +
-                    "  }\n" +
-                    "]";
 
-            /*try {
-                String u = Constants.API_URL;
-                URL url = new URL(u);
+            try {
+                URL url = new URL(Constants.API_URL + "/forums.json");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
                 Log.d("API_CONNECTION", String.format("%d", urlConnection.getResponseCode()));
@@ -110,7 +92,7 @@ public class ForumsList extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e("API_CONNECTION", "Connection error: " + e.getMessage());
                 return null;
-            }*/
+            }
         }
 
         @Override
