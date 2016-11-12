@@ -7,6 +7,7 @@ class ForumsController < ApplicationController
     @forums.each do |forum|
       forums.push(
           {
+              id: forum.id,
               name: forum.name,
               category: forum.entertainment.category,
               valoration: forum.entertainment.score
@@ -20,9 +21,10 @@ class ForumsController < ApplicationController
   end
 
 
-  #GET /forums/:forumName
+  #GET /forums/:id
   def show
-    @forum = Forum.find(params[:id])
+    forum_id = params[:id]
+    @forum = Forum.find(forum_id)
     forum = {
         name: @forum.name,
         visitors: @forum.visitors,
@@ -30,7 +32,8 @@ class ForumsController < ApplicationController
         entertainment: {
             description: @forum.entertainment.description,
             category: @forum.entertainment.category
-        }
+        },
+        # entries: getRelatedEntries(forum_id)
     }
     respond_to do |format|
       format.json do
@@ -40,15 +43,26 @@ class ForumsController < ApplicationController
   end
 
 
+
   #POST /forums
   def create
-    name = [params[:forumName]].first.to_s
-    description = [params[:description]].first.to_s
-    category = [params[:category]].first.to_s
+    name = params[:forumName].to_s
+    description = params[:description].to_s
+    category = params[:category].to_s
+    score = params[:score].to_f
 
     if check_valid_params(name, description, category)
-      @forum = Forum.new(:name => name, :visitors => 0, :participants => 0)
-      @entertainment = Entertainment.new(:name => name, :description => description, :category => category, :score => 0)
+      @forum = Forum.new(
+          :name => name,
+          :visitors => 1,
+          :participants => 1
+      )
+      @entertainment = Entertainment.new(
+          :name => name,
+          :description => description,
+          :category => category,
+          :score => score
+      )
       @forum.entertainment = @entertainment
       if @forum.save
         head :status => :ok
@@ -62,7 +76,7 @@ class ForumsController < ApplicationController
   end
 
 
-  #PATCH /forums/:forumName
+  #PATCH /forums/:id
   def update
 
   end
