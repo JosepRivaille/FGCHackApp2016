@@ -8,8 +8,8 @@ class ForumsController < ApplicationController
       forums.push(
           {
             name: forum.name,
-            category: forum.entertainment.category,
-            valoration: forum.entertainment.score
+            category: 'films',#forum.entertainment.category,
+            valoration: 8.0#forum.entertainment.score
           })
     end
     respond_to do |format|
@@ -42,8 +42,11 @@ class ForumsController < ApplicationController
 
   #POST /forums/:forumName
   def create
-    name = [params[:id]]
-    @forum = Forum.new(:name => name.first.to_s, :visitors => 0, :participants => 0)
+    name = [params[:id]].first.to_s
+    @forum = Forum.new(:name => name, :visitors => 0, :participants => 0)
+    # @entertainment = Entertainment.new(:name => name, :description => 'guapo', :category => 'films', :score => 8.0)
+    #if @entertainment.save
+    #  head :status => :ok
     if @forum.save
       head :status => :ok
     else
