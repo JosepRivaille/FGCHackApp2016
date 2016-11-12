@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Intent intent = new Intent(MainActivity.this, ForumsList.class);
+        final Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -1,10 +1,10 @@
-package com.ratchitech.trainook;
+package com.ratchitech.trainook.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ratchitech.trainook.Constants;
+import com.ratchitech.trainook.R;
 import com.ratchitech.trainook.models.ForumSimple;
 
 import org.json.JSONArray;
@@ -27,37 +29,26 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForumsList extends AppCompatActivity {
+public class AllForumsListMainMenu extends Fragment {
 
     private ListView listView;
     private ProgressBar progressBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forums_list);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_all_forums_list, container, false);
 
-        listView = (ListView) findViewById(R.id.forums_list);
-        progressBar = (ProgressBar) findViewById(R.id.forums_progress_bar);
+        listView = (ListView) rootView.findViewById(R.id.forums_list);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.forums_progress_bar);
 
-        new GetAllForums().execute();
+        return rootView;
     }
 
-    private Boolean exit = false;
-    @Override
-    public void onBackPressed() {
-        if (exit) {
-            finish();
-        } else {
-            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
-            exit = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    exit = false;
-                }
-            }, 3000);
-        }
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        new GetAllForums().execute();
     }
 
     private class GetAllForums extends AsyncTask<Void, Void, String> {
@@ -114,7 +105,7 @@ public class ForumsList extends AppCompatActivity {
                     }
 
                     final ArrayAdapter<ForumSimple> adapter = new ArrayAdapter<ForumSimple>(
-                            ForumsList.this, R.layout.forum_simple_item_list,
+                            getContext(), R.layout.forum_simple_item_list,
                             R.id.text_title, forumsSimples) {
 
                         @Override
@@ -157,15 +148,13 @@ public class ForumsList extends AppCompatActivity {
                     listView.setAdapter(adapter);
 
                 } catch (JSONException e) {
-                    Toast.makeText(ForumsList.this, "Invalid data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Invalid data", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(ForumsList.this, "Connection error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Connection error", Toast.LENGTH_SHORT).show();
             }
-
             progressBar.setVisibility(View.GONE);
         }
-
     }
 
 }
