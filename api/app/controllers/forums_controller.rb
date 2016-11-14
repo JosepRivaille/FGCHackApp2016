@@ -11,7 +11,8 @@ class ForumsController < ApplicationController
               name: forum.name,
               category: forum.entertainment.category,
               valoration: forum.entertainment.score
-          })
+          }
+      )
     end
     respond_to do |format|
       format.json do
@@ -51,53 +52,33 @@ class ForumsController < ApplicationController
     category = params[:category].to_s
     score = params[:score].to_f
 
-    if check_valid_params(name, description, category)
-      @forum = Forum.new(
-          :name => name,
-          :visitors => 1,
-          :participants => 1
-      )
-      @entertainment = Entertainment.new(
-          :name => name,
-          :description => description,
-          :category => category,
-          :score => score
-      )
-      @forum.entertainment = @entertainment
-      if @forum.save
-        head :status => :ok
-      else
-        head :status => :internal_server_error
-      end
+    @forum = Forum.new(
+        :name => name,
+        :visitors => 1,
+        :participants => 1
+    )
+
+    @entertainment = Entertainment.new(
+        :name => name,
+        :description => description,
+        :category => category,
+        :score => score
+    )
+
+    @forum.entertainment = @entertainment
+
+    if @forum.save
+      head :status => :ok
     else
-      head :status => :bad_request
+      head :status => :internal_server_error
     end
 
-  end
+end
 
 
-  #PATCH /forums/:id
-  def update
+#PATCH /forums/:id
+def update
 
-  end
-
-
-  private
-
-  def check_valid_params(name, description, category_name)
-    if name.equal? ''
-      return false
-    elsif description.equal? ''
-      return false
-    else
-      categories_list = %w(cinema sports music books games)
-      categories_list.each do |category|
-        if category === category_name
-          return true
-        end
-      end
-    end
-    false
-  end
+end
 
 end
