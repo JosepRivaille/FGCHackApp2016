@@ -2,8 +2,8 @@ class UsersController < ApplicationController
 
   #POST /users
   def create
-    id_tag = [params[:idTag]]
-    @user = User.new(:idTag => id_tag.first.to_s)
+    id_tag = params[:id_tag].to_s
+    @user = User.new(:id_tag => id_tag)
     if @user.save
       head :status => :ok
     else
