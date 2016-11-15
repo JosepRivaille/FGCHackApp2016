@@ -78,7 +78,9 @@ end
 
 #PATCH /forums/:id
 def update
-
+  forum_id = params[:id]
+  @forum = Forum.find(forum_id)
+  Entertainment.update(:forum_id, :score => 7.1)
 end
 
 end
