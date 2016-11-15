@@ -78,10 +78,18 @@ end
   #TODO: NO ACABAT.
 #PATCH /forums/:id
 def update
-  forum_id = params[:id]
-  @forum = Forum.find(forum_id)
-  Entertainment.update(:forum_id, :score => 7.1)
+#  forum_id = params[:id]
+#  @forum = Forum.find(forum_id)
+#  Entertainment.update(:forum_id, :score => 7.1)
 
+  respond_to do |format|
+    if @forum.update_attributes(params[:score])
+      format.json { head :no_content, status: :ok }
+    else
+      format.json { render json: @forum.errors, status: :unprocessable_entity }
+    end
+  end
+end
 
 
 
