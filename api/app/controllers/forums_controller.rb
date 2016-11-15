@@ -16,7 +16,7 @@ class ForumsController < ApplicationController
       )
     end
 
-        render status: 200, json: forums_simples
+    render status: 200, json: forums_simples
 
   end
 
