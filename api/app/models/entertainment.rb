@@ -7,4 +7,10 @@ class Entertainment < ApplicationRecord
 
   belongs_to :forum, :class_name => 'Forum', :foreign_key => 'id'
 
+  def calculate_new_score(new_score)
+    sum = self.score * self.total_votes
+    sum += new_score
+    sum / (self.total_votes + 1)
+  end
+
 end

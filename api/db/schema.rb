@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(version: 20161115193552) do
     t.text     "description"
     t.string   "category"
     t.float    "score"
+    t.integer  "total_votes"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "total_votes"
   end
 
   create_table "entries", force: :cascade do |t|

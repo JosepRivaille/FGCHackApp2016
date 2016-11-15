@@ -53,16 +53,16 @@ class ForumsController < ApplicationController
     score = params[:score].to_f
 
     @forum = Forum.new do |f|
-        f.name = name,
-        f.visitors = 1,
-        f.participants = 1
+      f.name = name,
+          f.visitors = 1,
+          f.participants = 1
     end
 
     @forum.entertainment = Entertainment.new do |e|
-        e.name = name,
-        e.description = description,
-        e.category = category,
-        e.score = score
+      e.name = name,
+          e.description = description,
+          e.category = category,
+          e.score = score
     end
 
     if @forum.save
@@ -71,24 +71,34 @@ class ForumsController < ApplicationController
       head :status => :internal_server_error
     end
 
-end
-
-  #TODO: NO ACABAT.
-#PATCH /forums/:id
-def update
-#  forum_id = params[:id]
-#  @forum = Forum.find(forum_id)
-#  Entertainment.update(:forum_id, :score => 7.1)
-
-  respond_to do |format|
-    if @forum.update_attributes(params[:score])
-      format.json { head :no_content, status: :ok }
-    else
-      format.json { render json: @forum.errors, status: :unprocessable_entity }
-    end
   end
-end
 
 
+  #PATCH /forums/:id
+  def update
+    forum_id = params[:id]
+    score = params[:score]
+
+    @forum = Forum.find(forum_id)
+    updated_score = @forum.entertainment.calculate_new_score(score)
+
+    respond_to do |format|
+      if @forum.entertainment.update(:score => updated_score, :total_votes => :total_votes + 1)
+        format.json do
+          render status: :ok, json: {
+              message: 'Score updated'
+          }.to_json
+        end
+      else
+        format.json do
+          render status: :internal_server_error, json: {
+              message: 'Score updated',
+              errors: @forum.errors
+          }.to_json
+        end
+      end
+    end
+
+  end
 
 end
