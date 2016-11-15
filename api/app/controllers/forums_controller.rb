@@ -52,20 +52,18 @@ class ForumsController < ApplicationController
     category = params[:category].to_s
     score = params[:score].to_f
 
-    @forum = Forum.new(
-        :name => name,
-        :visitors => 1,
-        :participants => 1
-    )
+    @forum = Forum.new do |f|
+        f.name = name,
+        f.visitors = 1,
+        f.participants = 1
+    end
 
-    @entertainment = Entertainment.new(
-        :name => name,
-        :description => description,
-        :category => category,
-        :score => score
-    )
-
-    @forum.entertainment = @entertainment
+    @forum.entertainment = Entertainment.new do |e|
+        e.name = name,
+        e.description = description,
+        e.category = category,
+        e.score = score
+    end
 
     if @forum.save
       head :status => :ok

@@ -16,7 +16,10 @@ class EntriesController < ApplicationController
     end
     respond_to do |format|
       format.json do
-        render json: entries
+        render status: :ok, json: {
+            message: 'Entries found for this forum',
+            data: entries
+        }.to_json
       end
     end
   end
@@ -24,24 +27,26 @@ class EntriesController < ApplicationController
 
   #POST /forums/:forum_id/entries
   def create
-    content = params[:content].to_s
-    user_id = params[:user_id].to_s
-    forum_id = params[:forum_id].to_s
+    content_entry = params[:content_entry]
+    user_id = params[:user_id]
+    forum_id = params[:forum_id]
 
-    if not content.empty?
-      @forum = Forum.find(forum_id)
-      @forum.entries.new(
-          :content => content,
-          :user => User.find(user_id)
-      )
-      if @forum.save
-        head :status => :ok
-      else
-        head :status => :internal_server_error
-      end
-    else
-      head :status => :bad_request
+    @entry = Entry.new do |e|
+      e.content = content_entry,
+      e.forum_id = forum_id,
+      e.user_id = user_id
     end
+
+    if @entry.save
+      render status: :ok, json: {
+          message: 'Successfully created entry'
+      }
+    else
+      render status: :internal_server_error, json: {
+          message: 'Something went wrong, try it again'
+      }.to_json
+    end
+
   end
 
 end
