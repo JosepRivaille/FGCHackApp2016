@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115193552) do
+ActiveRecord::Schema.define(version: 20161115210458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(version: 20161115193552) do
     t.text     "description"
     t.string   "category"
     t.float    "score"
-    t.integer  "total_votes"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "total_votes", default: 1
   end
 
   create_table "entries", force: :cascade do |t|
@@ -35,10 +35,10 @@ ActiveRecord::Schema.define(version: 20161115193552) do
 
   create_table "forums", force: :cascade do |t|
     t.string   "name"
-    t.integer  "visitors"
-    t.integer  "participants"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "visitors",     default: 1
+    t.integer  "participants", default: 1
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "users", force: :cascade do |t|
