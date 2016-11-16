@@ -1,5 +1,6 @@
 class ChangeDataTypeForIdTag < ActiveRecord::Migration[5.0]
   def change
-    change_column(:users, :idTag, :string)
+    #:idTag to :id_tag
+    change_column(:users, :id_tag, :string)
   end
 end
