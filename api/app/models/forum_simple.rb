@@ -1,2 +1,0 @@
-class ForumSimple < ApplicationRecord
-end
