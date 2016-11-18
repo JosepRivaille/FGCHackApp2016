@@ -2,7 +2,8 @@ class UsersController < ApplicationController
 
   #POST /users
   def create
-    @user = User.new(:id_tag => params[:id_tag])
+    id_tag = params[:id_tag]
+    @user = User.new(:id_tag => id_tag)
 
     if @user.save
       render status: :ok, json: {

@@ -16,7 +16,7 @@ class ForumsController < ApplicationController
       )
     end
 
-        render status: 200, json: forums_simples
+    render status: 200, json: forums_simples
 
   end
 
@@ -50,26 +50,33 @@ class ForumsController < ApplicationController
     category = params[:category]
     score = params[:score].to_f
 
-    @forum = Forum.new do |f|
-      f.name = name
-      f.visitors = 1
-      f.participants = 1
-    end
+    # TODO: Refactor into model validations
+    if check_correct_parameters(description, category, score)
+      @forum = Forum.new do |f|
+        f.name = name
+        f.visitors = 1
+        f.participants = 1
+      end
 
-    @forum.entertainment = Entertainment.new do |e|
-      e.name = name
-      e.description = description
-      e.category = category
-      e.score = score
-    end
+      @forum.entertainment = Entertainment.new do |e|
+        e.name = name
+        e.description = description
+        e.category = category
+        e.score = score
+      end
 
-    if @forum.save
-      render status: :ok, json: {
-          message: 'Forum created'
-      }.to_json
+      if @forum.save
+        render status: :ok, json: {
+            message: 'Forum created'
+        }.to_json
+      else
+        render status: :internal_server_error, json: {
+            errors: @forum.errors
+        }.to_json
+      end
     else
       render status: :internal_server_error, json: {
-          errors: @forum.errors
+          errors: 'invalid params'
       }.to_json
     end
 
@@ -95,6 +102,21 @@ class ForumsController < ApplicationController
       }.to_json
     end
 
+  end
+
+
+  private
+
+  def check_correct_parameters(description, category, score)
+    if description.nil? or category.nil? or score.nil?
+      false
+    else
+      if %w(cinema sports music books games).include? category
+        return true
+      else
+        return false
+      end
+    end
   end
 
 end
