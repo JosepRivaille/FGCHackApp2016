@@ -2,11 +2,13 @@ package com.ratchitech.trainook.models;
 
 public class ForumSimple {
 
+    private Integer id;
     private String name;
     private String category;
     private Double valoration;
 
-    public ForumSimple(String name, String category, Double valoration) {
+    public ForumSimple(Integer id, String name, String category, Double valoration) {
+        this.id = id;
         this.name = name;
         this.category = category;
         this.valoration = valoration;

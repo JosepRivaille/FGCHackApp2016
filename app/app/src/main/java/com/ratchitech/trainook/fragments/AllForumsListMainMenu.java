@@ -97,10 +97,11 @@ public class AllForumsListMainMenu extends Fragment {
                     int forumsSize = forumsJSONArray.length();
                     for (int i = 0; i < forumsSize; i++) {
                         JSONObject forumSimpleJSONObject = forumsJSONArray.getJSONObject(i);
+                        Integer idForum = forumSimpleJSONObject.getInt("id");
                         String name = forumSimpleJSONObject.getString("name");
                         String category = forumSimpleJSONObject.getString("category");
-                        Double valoration = forumSimpleJSONObject.getDouble("valoration");
-                        ForumSimple forumSimple = new ForumSimple(name, category, valoration);
+                        Double score = forumSimpleJSONObject.getDouble("score");
+                        ForumSimple forumSimple = new ForumSimple(idForum, name, category, score);
                         forumsSimples.add(forumSimple);
                     }
 
@@ -118,11 +119,11 @@ public class AllForumsListMainMenu extends Fragment {
 
                             String name = forumsSimples.get(position).getName();
                             String category = forumsSimples.get(position).getCategory();
-                            Double valoration = forumsSimples.get(position).getValoration();
+                            Double score = forumsSimples.get(position).getValoration();
 
                             imageCategory.setImageResource(getIconFromCategory(category));
                             textTitle.setText(name);
-                            textScore.setText(String.valueOf(valoration));
+                            textScore.setText(String.format("%.2f", score));
 
                             return view;
                         }
