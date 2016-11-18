@@ -26,6 +26,7 @@ class ForumsController < ApplicationController
     forum_id = params[:id]
 
     @forum = Forum.find(forum_id)
+    @forum.increment!(:visitors)
 
     forum_details = {
         name: @forum.name,
