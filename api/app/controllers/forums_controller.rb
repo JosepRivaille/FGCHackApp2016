@@ -76,7 +76,7 @@ class ForumsController < ApplicationController
         }.to_json
       end
     else
-      render status: :internal_server_error, json: {
+      render status: :bad_request, json: {
           errors: 'invalid params'
       }.to_json
     end
@@ -89,17 +89,24 @@ class ForumsController < ApplicationController
     forum_id = params[:id]
     score = params[:score].to_f
 
-    @forum = Forum.find(forum_id)
-    updated_score = @forum.entertainment.calculate_new_score(score)
+    if score.between?(0,10)
+      @forum = Forum.find(forum_id)
+      updated_score = @forum.entertainment.calculate_new_score(score)
 
-    if @forum.entertainment.update_attributes(:score => updated_score)
-      @forum.entertainment.increment!(:total_votes)
-      render status: :ok, json: {
-          message: 'Score updated'
-      }.to_json
+      if @forum.entertainment.update_attributes(:score => updated_score)
+        @forum.entertainment.increment!(:total_votes)
+        render status: :ok, json: {
+            message: 'Score updated'
+        }.to_json
+      else
+        render status: :internal_server_error, json: {
+            errors: @forum.errors
+        }.to_json
+      end
+
     else
-      render status: :internal_server_error, json: {
-          errors: @forum.errors
+      render status: :bad_request, json: {
+          errors: 'invalid params'
       }.to_json
     end
 
