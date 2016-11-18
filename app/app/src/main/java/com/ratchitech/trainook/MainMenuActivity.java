@@ -1,7 +1,9 @@
 package com.ratchitech.trainook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.ratchitech.trainook.activities.AboutActivity;
 import com.ratchitech.trainook.fragments.AllForumsListMainMenu;
 
 public class MainMenuActivity extends AppCompatActivity
@@ -45,12 +48,23 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (id == R.id.nav_all_forums) {
             newFragment = new AllForumsListMainMenu();
+        } else if (id == R.id.nav_share) {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, "Trainook");
+            String sAux = "\nLet me recommend you this application\n\n";
+            sAux = sAux + "";
+            i.putExtra(Intent.EXTRA_TEXT, sAux);
+            startActivity(Intent.createChooser(i, "choose one"));
+        } else if (id == R.id.nav_about) {
+            Intent intent = new Intent(MainMenuActivity.this, AboutActivity.class);
+            startActivity(intent);
         }
 
         if (newFragment != null) {

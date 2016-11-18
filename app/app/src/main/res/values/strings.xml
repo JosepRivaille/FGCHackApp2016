@@ -14,6 +14,13 @@
     <string name="nav_share">Share</string>
     <string name="nav_about">About</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- About activity -->
+    <string name="version">Version</string>
+    <string name="description_about">Trainook is a project created by
+        <b><a href="https://es.linkedin.com/in/josep-de-cid-rodríguez-6788b4103/en">Josep de Cid</a></b>,
+        <b><a href="#">Franc Auxach</a></b>,
+        <b><a href="https://www.linkedin.com/in/demian-turcan-583b26125/en">Demian Turcan</a></b> and
+        <b><a href="https://www.linkedin.com/in/manel-gavald%C3%A0-andreu-410b72117/en">Manel Gavaldà</a></b>
+        to FGCHackApp2016.</string>
+
 </resources>
