@@ -1,5 +1,6 @@
 package com.ratchitech.trainook.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ratchitech.trainook.Constants;
+import com.ratchitech.trainook.activities.ForumActivity;
 import com.ratchitech.trainook.R;
 import com.ratchitech.trainook.models.ForumSimple;
 
@@ -47,6 +50,16 @@ public class AllForumsListMainMenu extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                ForumSimple forumSelected = (ForumSimple) listView.getItemAtPosition(position);
+                Intent intent = new Intent(getContext(), ForumActivity.class);
+                intent.putExtra("idForum", String.valueOf(forumSelected.getId()));
+                startActivity(intent);
+            }
+        });
 
         new GetAllForums().execute();
     }

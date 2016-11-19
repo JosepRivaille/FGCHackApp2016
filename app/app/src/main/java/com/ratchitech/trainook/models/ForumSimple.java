@@ -14,6 +14,10 @@ public class ForumSimple {
         this.valoration = valoration;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -37,4 +41,5 @@ public class ForumSimple {
     public void setValoration(Double valoration) {
         this.valoration = valoration;
     }
+
 }

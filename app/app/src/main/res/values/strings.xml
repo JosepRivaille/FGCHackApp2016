@@ -23,4 +23,7 @@
         <b><a href="https://www.linkedin.com/in/manel-gavald%C3%A0-andreu-410b72117/en">Manel Gavaldà</a></b>
         to FGCHackApp2016.</string>
 
+    <!-- -->
+    <string name="title_activity_forum">ForumActivity</string>
+
 </resources>
