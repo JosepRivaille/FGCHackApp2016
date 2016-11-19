@@ -6,6 +6,18 @@
             android:id="@+id/nav_all_forums"
             android:icon="@drawable/ic_list_black_24dp"
             android:title="@string/nav_all_forums" />
+        <item
+            android:id="@+id/nav_search_categories"
+            android:icon="@drawable/ic_assignment_black_24dp"
+            android:title="@string/nav_filter_category_forums" />
+        <item
+            android:id="@+id/nav_trending_forums"
+            android:icon="@drawable/ic_whatshot_black_24dp"
+            android:title="@string/nav_trending_forums" />
+        <item
+            android:id="@+id/nav_random_forum"
+            android:icon="@drawable/ic_assistant_photo_black_24dp"
+            android:title="@string/nav_random_forum" />
     </group>
 
     <item android:title="@string/nav_group2">

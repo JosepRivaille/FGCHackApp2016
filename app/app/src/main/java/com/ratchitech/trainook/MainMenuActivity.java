@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.ratchitech.trainook.activities.AboutActivity;
+import com.ratchitech.trainook.activities.ForumActivity;
 import com.ratchitech.trainook.fragments.AllForumsListMainMenu;
 
 public class MainMenuActivity extends AppCompatActivity
@@ -54,6 +55,12 @@ public class MainMenuActivity extends AppCompatActivity
 
         if (id == R.id.nav_all_forums) {
             newFragment = new AllForumsListMainMenu();
+        } else if (id == R.id.nav_search_categories) {
+        } else if (id == R.id.nav_trending_forums) {
+        } else if (id == R.id.nav_random_forum) {
+            Intent intent = new Intent(MainMenuActivity.this, ForumActivity.class);
+            intent.putExtra("idForum", "0");
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");

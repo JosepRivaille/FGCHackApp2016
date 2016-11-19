@@ -9,6 +9,9 @@
 
     <!-- Navigation Drawer -->
     <string name="nav_all_forums">All forums</string>
+    <string name="nav_filter_category_forums">Search by categories</string>
+    <string name="nav_trending_forums">Trending forums</string>
+    <string name="nav_random_forum">Random forum</string>
 
     <string name="nav_group2">Other options</string>
     <string name="nav_share">Share</string>
